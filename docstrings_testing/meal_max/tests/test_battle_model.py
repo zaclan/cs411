@@ -90,6 +90,12 @@ def test_clear_combatants(battle_model, sample_meal1):
     assert combatants == [sample_meal1], "Expected to have one combatant before clearing"
     battle_model.clear_combatants()
     assert battle_model.combatants == [], "Expected combatants list to be empty after clearing."
+
+def test_clear_empty_combatants(battle_model, caplog):
+    """Test clearing an already empty combatants list and check logging."""
+    battle_model.clear_combatants()
+    assert len(battle_model.get_combatants()) == 0, "Combatants list should be empty after clearing"
+    assert "Clearing the combatants list." in caplog.text, "Expected log message when clearing combatants list"
     
 ######################################################
 #
